@@ -1,43 +1,37 @@
 import React, { useState } from 'react';
 import './App.css';
-import TollCreditApplicationForm from "./SoknadSkjema";
-import KontaktInformasjonFelt from "./KontaktInformasjonFelt";
-import SoknadSkjema from "./SoknadSkjema";
-import SoknadSkjemaFortsettelse from "./SoknadSkjemaFortsettelse";
+import {sendForm} from "./api";
+import KontaktInformasjon from "./KontaktInformasjonFelt";
 
 
 function App() {
-  const [formData, setFormData] = useState({
-    // Initialize your form fields here, e.g., name: '',
-    fieldName: ''
-  });
+    const [formData, setFormData] = useState({
+        // ... initial form data
+    });
 
-  const handleChange = (event: { target: { name: any; value: any; }; }) => {
-    const { name, value } = event.target;
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      [name]: value
-    }));
-  };
+    const updateFormData = (field: any, value: any) => {
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [field]: value
+        }));
+    };
 
-  const handleSubmit = (event: { preventDefault: () => void; }) => {
-    event.preventDefault();
-    // Handle form submission, e.g., console.log(formData);
-    console.log(formData);
-  };
+    const handleSubmit = (event: { preventDefault: () => void; }) => {
+        event.preventDefault();
+        sendForm(formData);
+    };
 
-  return (
-      <div className="App">
-        <form onSubmit={handleSubmit}>
-          {/* Form fields go here */}
-          <KontaktInformasjonFelt
-          />
-          <SoknadSkjema />
-          <SoknadSkjemaFortsettelse />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-  );
+    return (
+        <div className="App">
+            <form onSubmit={handleSubmit}>
+                // In your App component's return statement
+                <KontaktInformasjon
+                    updateFormData={updateFormData}
+                    formData={formData}
+                />
+            </form>
+        </div>
+    );
 }
 
 export default App;
