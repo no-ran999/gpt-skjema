@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
+import TollCreditApplicationForm from "./SoknadSkjema";
+import KontaktInformasjonFelt from "./KontaktInformasjonFelt";
+import SoknadSkjema from "./SoknadSkjema";
+import SoknadSkjemaFortsettelse from "./SoknadSkjemaFortsettelse";
 
 
 function App() {
@@ -26,12 +30,10 @@ function App() {
       <div className="App">
         <form onSubmit={handleSubmit}>
           {/* Form fields go here */}
-          <input
-              type="text"
-              name="fieldName"
-              value={formData.fieldName}
-              onChange={handleChange}
+          <KontaktInformasjonFelt
           />
+          <SoknadSkjema />
+          <SoknadSkjemaFortsettelse />
           <button type="submit">Submit</button>
         </form>
       </div>
